@@ -10,7 +10,6 @@ dependencies:
     sdk: flutter
   flutter_blue:
   google_fonts:
-  geolocation:
   oktoast:
   auto_size_text:
   email_validator:
@@ -28,3 +27,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+
+  assets:
+    - assets/
+    - assets/svg/
