@@ -1,0 +1,30 @@
+name: flutter_blue_example
+description: Demonstrates how to use the flutter_blue plugin.
+publish_to: "none"
+
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_blue:
+  google_fonts:
+  geolocation:
+  oktoast:
+  auto_size_text:
+  email_validator:
+  password_strength:
+  font_awesome_flutter:
+  flutter_svg:
+  smooth_page_indicator:
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_blue:
+
+flutter:
+  uses-material-design: true
