@@ -1,6 +1,5 @@
-import 'package:flutter_blue_example/create_profile.dart';
 import 'package:flutter_blue_example/home_page.dart';
-import 'package:flutter_blue_example/signup_page.dart';
+import 'package:flutter_blue_example/sign_in_page.dart';
 import 'package:flutter_blue_example/widgets/custom_sliver_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,16 +7,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_blue_example/utils/colors.dart' as colors;
 import 'package:flutter_blue_example/utils/constants.dart' as constants;
 
-
-class SignInPage extends StatefulWidget {
-  const SignInPage({Key? key}) : super(key: key);
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
-  State<SignInPage> createState() => _SignInPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _SignInPageState extends State<SignInPage> {
-
+class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _phoneNumberController = TextEditingController();
@@ -73,7 +70,7 @@ class _SignInPageState extends State<SignInPage> {
                                 padding:
                                 const EdgeInsets.only(top: 1, bottom: 20),
                                 child: Text(
-                                  'Sign in to Cabriolet',
+                                  'Register with Cabriolet',
                                   style: GoogleFonts.nunito(
                                     color: colors.primaryTextColor,
                                     fontSize: 16,
@@ -91,13 +88,45 @@ class _SignInPageState extends State<SignInPage> {
                               color: colors.primaryTextColor),
                           validator: (value) {
                             if (value == "" || value == null) {
-                              return "Please enter a valid email";
+                              return "Please enter a valid name";
                             } else {
                               return null;
                             }
                           },
                           decoration: InputDecoration(
                             label: Text('Name',
+                                style: GoogleFonts.nunito(
+                                    color: colors.textBoxTextColor,
+                                    fontSize: 17)),
+                            filled: true,
+                            hintText: 'Enter your name',
+                            hintStyle: GoogleFonts.poppins(
+                                color: colors.textBoxTextColor),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(5)),
+                            fillColor: colors.textBoxColor,
+                            focusColor: colors.textBoxColor,
+                            enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(5)),
+                          )),
+                    ),
+                    Padding(
+                      padding: constants.textFieldPadding,
+                      child: TextFormField(
+                          controller: _nameController,
+                          style: GoogleFonts.montserrat(
+                              color: colors.primaryTextColor),
+                          validator: (value) {
+                            if (value == "" || value == null) {
+                              return "Please enter a valid email";
+                            } else {
+                              return null;
+                            }
+                          },
+                          decoration: InputDecoration(
+                            label: Text('Email',
                                 style: GoogleFonts.nunito(
                                     color: colors.textBoxTextColor,
                                     fontSize: 17)),
@@ -116,47 +145,97 @@ class _SignInPageState extends State<SignInPage> {
                           )),
                     ),
                     Padding(
-                      padding: constants.textFieldPadding,
-                      child: TextFormField(
-                          controller: _nameController,
-                          style: GoogleFonts.montserrat(
-                              color: colors.primaryTextColor),
-                          validator: (value) {
-                            if (value == "" || value == null) {
-                              return "Please enter a valid password";
-                            } else {
-                              return null;
-                            }
-                          },
-                          decoration: InputDecoration(
-                            label: Text('Password',
+                      padding: const EdgeInsets.only(
+                          top: 10, left: 20, right: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            flex: 2,
+                            child: TextFormField(
+                                maxLength: 6,
+                                keyboardType:
+                                const TextInputType.numberWithOptions(),
+                                controller: _passwordController,
+                                validator: (value) {
+                                  if (value == "" || value == null) {
+                                    return "Enter OTP";
+                                  } else {
+                                    return null;
+                                  }
+                                },
                                 style: GoogleFonts.nunito(
-                                    color: colors.textBoxTextColor,
-                                    fontSize: 17)),
-                            filled: true,
-                            hintText: 'Enter your password',
-                            hintStyle: GoogleFonts.poppins(
-                                color: colors.textBoxTextColor),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(5)),
-                            fillColor: colors.textBoxColor,
-                            focusColor: colors.textBoxColor,
-                            enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(5)),
-                          )),
+                                    color: colors.primaryTextColor,
+                                    fontSize: 17),
+                                decoration: InputDecoration(
+                                  label: Text('Password',
+                                      style: GoogleFonts.nunito(
+                                          color: colors.textBoxTextColor,
+                                          fontSize: 17)),
+                                  filled: true,
+                                  hintText: 'Password',
+                                  hintStyle: GoogleFonts.poppins(
+                                      color: colors.textBoxTextColor),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(5)),
+                                  fillColor: colors.textBoxColor,
+                                  focusColor: colors.textBoxColor,
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(5)),
+                                )),
+                          ),
+                          const SizedBox(width: 15,),
+                          Expanded(
+                            flex: 2,
+                            child: TextFormField(
+                                maxLength: 6,
+                                keyboardType:
+                                const TextInputType.numberWithOptions(),
+                                controller: _passwordController,
+                                validator: (value) {
+                                  if (value == "" || value == null) {
+                                    return "Retype password";
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                style: GoogleFonts.nunito(
+                                    color: colors.primaryTextColor,
+                                    fontSize: 17),
+                                decoration: InputDecoration(
+                                  label: Text('Retype',
+                                      style: GoogleFonts.nunito(
+                                          color: colors.textBoxTextColor,
+                                          fontSize: 17)),
+                                  filled: true,
+                                  hintText: 'Retype',
+                                  hintStyle: GoogleFonts.poppins(
+                                      color: colors.textBoxTextColor),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(5)),
+                                  fillColor: colors.textBoxColor,
+                                  focusColor: colors.textBoxColor,
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(5)),
+                                )),
+                          ),
+                        ],
+                      ),
                     ),
-                    Padding(padding: const EdgeInsets.only(left: 20, right: 20,bottom: 30),
+                    Padding(padding: const EdgeInsets.only(left: 20, right: 20),
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: TextButton(
-                          child: Text('Sign up instead', style: GoogleFonts.nunito(fontSize: 20, color: colors.primaryTextColor, ),),
+                          child: Text('Sign in instead', style: GoogleFonts.nunito(fontSize: 20, color: colors.primaryTextColor, ),),
                           onPressed: (){
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => SignUpPage()));
+                                    builder: (context) => SignInPage()));
                           },
                         ),
                       ),),
@@ -170,14 +249,14 @@ class _SignInPageState extends State<SignInPage> {
                               style: ElevatedButton.styleFrom(
                                   primary: colors.accentColor),
                               child: Text(
-                                'SIGN IN',
+                                'SIGN UP',
                                 style: constants.alternateIconTextStyle,
                               ),
                               onPressed: () {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => CreateProfilePage()));
+                                        builder: (context) => HomePage()));
                               },
                             ),
                           ]

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_example/bluetooth_main.dart';
 import 'package:flutter_blue_example/onboarding_screens.dart';
 import 'package:flutter_blue_example/sign_in_page.dart';
 import 'package:flutter_blue_example/utils/colors.dart' as colors;
@@ -65,7 +66,7 @@ class _LandingPageState extends State<LandingPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => OnboardingScreens()));
+                                  builder: (context) => BluetoothSection()));
                         },
                         icon: Icon(
                           FontAwesomeIcons.arrowRight,
