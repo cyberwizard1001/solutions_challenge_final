@@ -1,4 +1,4 @@
-import 'package:flutter_blue_example/landing_page.dart';
+import 'package:flutter_blue_example/screens/landing_page.dart';
 import 'package:flutter_blue_example/utils/colors.dart' as colors;
 import 'package:flutter_blue_example/widgets/custom_sliver_widget.dart';
 import 'package:flutter/material.dart';

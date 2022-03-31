@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_blue_example/bluetooth_main.dart';
-import 'package:flutter_blue_example/onboarding_screens.dart';
-import 'package:flutter_blue_example/sign_in_page.dart';
+import 'package:flutter_blue_example/screens/bluetooth_main.dart';
+import 'package:flutter_blue_example/screens/onboarding_screens.dart';
+import 'package:flutter_blue_example/screens/sign_in_page.dart';
 import 'package:flutter_blue_example/utils/colors.dart' as colors;
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

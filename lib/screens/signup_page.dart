@@ -1,5 +1,5 @@
-import 'package:flutter_blue_example/home_page.dart';
-import 'package:flutter_blue_example/sign_in_page.dart';
+import 'package:flutter_blue_example/screens/home_page.dart';
+import 'package:flutter_blue_example/screens/sign_in_page.dart';
 import 'package:flutter_blue_example/widgets/custom_sliver_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

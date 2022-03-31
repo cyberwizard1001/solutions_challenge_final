@@ -1,5 +1,5 @@
-import 'package:flutter_blue_example/home_page.dart';
-import 'package:flutter_blue_example/profile_page.dart';
+import 'package:flutter_blue_example/screens/home_page.dart';
+import 'package:flutter_blue_example/screens/profile_page.dart';
 import 'package:flutter_blue_example/utils/colors.dart' as colors;
 import 'package:flutter_blue_example/utils/constants.dart';
 import 'package:flutter_blue_example/widgets/custom_sliver_widget.dart';
