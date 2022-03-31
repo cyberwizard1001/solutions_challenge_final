@@ -12,6 +12,10 @@ Future<void> main() async {
 
   var heartRate = FirebaseDatabase.instance.ref("heartrate");
 
+  //To change trigger value
+  var trigger = FirebaseDatabase.instance.ref("trigger-sentry");
+  trigger.set(true);
+
   heartRate.onValue.listen((DatabaseEvent event){
     print(event.snapshot.value);
   });
