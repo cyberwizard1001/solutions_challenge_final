@@ -14,40 +14,43 @@ class SentryPage extends StatefulWidget {
 class _SentryPageState extends State<SentryPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomSliverView(
-        columnList: [
-          Align(
-            alignment: Alignment.topLeft,
-            child: Padding(
-              padding: EdgeInsets.only(top: 50, left: 20.0, right: 20.0),
-              child: Text(
-                'Sentry Mode',
-                style: GoogleFonts.montserrat(
-                    color: colors.primaryTextColor, fontSize: 40),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        body: CustomSliverView(
+          columnList: [
+            Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: EdgeInsets.only(top: 50, left: 20.0, right: 20.0),
+                child: Text(
+                  'Sentry Mode',
+                  style: GoogleFonts.montserrat(
+                      color: colors.primaryTextColor, fontSize: 40),
+                ),
               ),
             ),
-          ),
-          Expanded(
-              child: Center(
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(30))),
-                  primary: Colors.red,
-                  padding: EdgeInsets.all(40),
-                  textStyle: TextStyle(fontSize: 20)),
-              onPressed: () {
-                var trigger = FirebaseDatabase.instance.ref("trigger-sentry");
-                trigger.set(false);
+            Expanded(
+                child: Center(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(30))),
+                    primary: Colors.red,
+                    padding: EdgeInsets.all(40),
+                    textStyle: TextStyle(fontSize: 20)),
+                onPressed: () {
+                  var trigger = FirebaseDatabase.instance.ref("trigger-sentry");
+                  trigger.set(false);
 
-                Navigator.of(context).pop();
+                  Navigator.of(context).pop();
 
-              },
-              child: Text("Disable Sentry Mode"),
-            ),
-          ))
-        ],
+                },
+                child: Text("Disable Sentry Mode"),
+              ),
+            ))
+          ],
+        ),
       ),
     );
   }
