@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_example/screens/landing_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:flutter_blue_example/screens/video_list.dart';
 import 'package:flutter_blue_example/screens/video_player.dart';
 
 Future<void> main() async {
@@ -41,7 +42,7 @@ Future<void> main() async {
 
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: VideoApp(),
+    home: VideoList(),
     //theme: darkTheme.,
   ));
 }
