@@ -1,4 +1,4 @@
-import 'package:flutter_blue_example/screens/home_page.dart';
+import 'package:flutter_blue_example/screens/dash_board.dart';
 import 'package:flutter_blue_example/screens/profile_page.dart';
 import 'package:flutter_blue_example/utils/colors.dart' as colors;
 import 'package:flutter_blue_example/utils/constants.dart';

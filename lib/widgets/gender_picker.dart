@@ -15,7 +15,7 @@ class GenderPickerWidget extends FormField<String> {
       : super(key: key,
       onSaved: onSaved,
       validator: (data) {
-        if (data == null) return "Please choose date";
+        if (data == null) return "Please choose gender";
         return null;
       },
       initialValue: initialGender ?? MALE,
@@ -93,7 +93,7 @@ class GenderWidget extends StatelessWidget {
                 child: Chip(
                   backgroundColor: state.value == gender ? successColor ?? colors.successColor : colors.scaffoldColor,
                   label: Text(gender),
-                  labelStyle: GoogleFonts.poppins(fontSize: 13,color: colors.primaryTextColor,fontWeight: state.value == gender ? FontWeight.bold : FontWeight.normal),
+                  labelStyle: GoogleFonts.poppins(fontSize: 13,color: colors.scaffoldColor,fontWeight: state.value == gender ? FontWeight.bold : FontWeight.normal),
                 )),
           )
         ],

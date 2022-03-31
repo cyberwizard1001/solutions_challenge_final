@@ -19,7 +19,7 @@ class ProfilePage extends StatelessWidget {
                 columnList: [
                   Padding(
                     padding:
-                    const EdgeInsets.only(top: 20.0, bottom: 20, left: 10),
+                    const EdgeInsets.only(top: 60.0, bottom: 20, left: 10),
                     child: Align(
                         alignment: Alignment.topLeft,
                         child: Text(
@@ -54,7 +54,7 @@ class ProfilePage extends StatelessWidget {
                     child: Text("@" + 'nirmalk',
                         style: GoogleFonts.nunito(
                             fontSize: 20,
-                            color: Colors.white70,
+                            color: Colors.black.withOpacity(0.6),
                             fontWeight: FontWeight.bold)),
                   ),
                   Expanded(child: Container()),
@@ -64,7 +64,7 @@ class ProfilePage extends StatelessWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
+                          primary: colors.accentColor,
                           onPrimary: colors.accentColor,
                         ),
                         onPressed: () {
