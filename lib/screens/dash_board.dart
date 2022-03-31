@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_example/widgets/custom_sliver_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,6 +13,33 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  String oxygenData = "", heartRateData = "";
+
+
+  @override
+  void initState() {
+    super.initState();
+    var heartRate = FirebaseDatabase.instance.ref("heartrate");
+    var oxygen = FirebaseDatabase.instance.ref("oxygen");
+
+    //To change trigger value
+    // var trigger = FirebaseDatabase.instance.ref("trigger-sentry");
+    // trigger.set(true);
+
+    heartRate.onValue.listen((DatabaseEvent event) {
+      setState(() {
+        heartRateData = event.snapshot.value.toString();
+      });
+    });
+
+    oxygen.onValue.listen((DatabaseEvent event) {
+      setState(() {
+        oxygenData = event.snapshot.value.toString();
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,13 +104,13 @@ class _HomePageState extends State<HomePage> {
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Text('95', style: GoogleFonts.montserrat(fontSize: 80, color: colors.scaffoldColor),),
+                                  Text(heartRateData, style: GoogleFonts.montserrat(fontSize: 80, color: colors.scaffoldColor),),
                                   Align(alignment: Alignment.bottomRight,child: Text('BPM', style: GoogleFonts.montserrat(fontSize: 20, color: colors.scaffoldColor),))
                                 ],
                               ),
                               Row(
                                 children: [
-                                  Text('98', style: GoogleFonts.montserrat(fontSize: 80, color: colors.scaffoldColor),),
+                                  Text(oxygenData, style: GoogleFonts.montserrat(fontSize: 80, color: colors.scaffoldColor),),
                                   Text('%', style: GoogleFonts.montserrat(fontSize: 20, color: colors.scaffoldColor),)
                                 ],
                               )
@@ -106,7 +134,7 @@ class _HomePageState extends State<HomePage> {
                               children: [
                               Row(
                                 children: [
-                                  Text('95',style: GoogleFonts.montserrat(fontSize: 60, color: colors.primaryTextColor),),
+                                  Text(heartRateData,style: GoogleFonts.montserrat(fontSize: 60, color: colors.primaryTextColor),),
                                   Align(alignment: Alignment.bottomRight,child: Text('BPM', style: GoogleFonts.montserrat(fontSize: 20, color: colors.primaryTextColor),))
                                 ],
                               )]
@@ -128,7 +156,7 @@ class _HomePageState extends State<HomePage> {
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text('95',style: GoogleFonts.montserrat(fontSize: 60, color: colors.primaryTextColor),),
+                                      Text(oxygenData,style: GoogleFonts.montserrat(fontSize: 60, color: colors.primaryTextColor),),
                                       Align(alignment: Alignment.bottomRight,child: Text('%', style: GoogleFonts.montserrat(fontSize: 20, color: colors.primaryTextColor),))
                                     ],
                                   ),
