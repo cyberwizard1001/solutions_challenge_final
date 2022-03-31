@@ -306,27 +306,29 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Color(0xffEF7A7A),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0, bottom: 20.0),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xffEF7A7A),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(top: 50, bottom: 50.0),
+                  child: Center(
+                      child: Text(
+                    monitorMode
+                        ? 'TURN OFF MONITOR MODE'
+                        : 'TURN ON MONITOR MODE',
+                    style: GoogleFonts.montserrat(
+                        color: Color(0xff660000), fontSize: 25),
+                    textAlign: TextAlign.center,
+                  )),
+                ),
+                onPressed: () {
+                  monitorModeRef.set(!monitorMode);
+                },
               ),
-              child: Padding(
-                padding: EdgeInsets.only(top: 50, bottom: 50.0),
-                child: Center(
-                    child: Text(
-                  monitorMode
-                      ? 'TURN OFF MONITOR MODE'
-                      : 'TURN ON MONITOR MODE',
-                  style: GoogleFonts.montserrat(
-                      color: Color(0xff660000), fontSize: 25),
-                  textAlign: TextAlign.center,
-                )),
-              ),
-              onPressed: () {
-                monitorModeRef.set(!monitorMode);
-              },
             ),
           )
           //Add a button to turn off monitoring and a correspondong value on realtime database
