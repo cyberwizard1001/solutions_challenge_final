@@ -1,31 +1,12 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blue_example/screens/dash_board.dart';
 import 'package:flutter_blue_example/screens/landing_page.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:flutter_blue_example/screens/video_list.dart';
-import 'package:flutter_blue_example/screens/video_player.dart';
+import 'package:oktoast/oktoast.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
-  var heartRate = FirebaseDatabase.instance.ref("heartrate");
-
-  //To change trigger value
-  var trigger = FirebaseDatabase.instance.ref("trigger-sentry");
-  trigger.set(true);
-
-  heartRate.onValue.listen((DatabaseEvent event) {
-    print(event.snapshot.value);
-  });
-
-  var oxygen = FirebaseDatabase.instance.ref("oxygen");
-
-  oxygen.onValue.listen((DatabaseEvent event) {
-    print(event.snapshot.value);
-  });
 
   /// Firebase FireStore
   // CollectionReference _collectionRef =
@@ -41,9 +22,11 @@ Future<void> main() async {
   // }
   // getData();
 
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: LandingPage(),
-    //theme: darkTheme.,
+  runApp(OKToast(
+    child: MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: LandingPage(),
+      //theme: darkTheme.,
+    ),
   ));
 }
