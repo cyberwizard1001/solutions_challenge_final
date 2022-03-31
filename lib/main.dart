@@ -2,7 +2,8 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_example/screens/landing_page.dart';
 import 'package:firebase_core/firebase_core.dart';
-
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:flutter_blue_example/screens/video_player.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,13 +15,13 @@ Future<void> main() async {
   var trigger = FirebaseDatabase.instance.ref("trigger-sentry");
   trigger.set(true);
 
-  heartRate.onValue.listen((DatabaseEvent event){
+  heartRate.onValue.listen((DatabaseEvent event) {
     print(event.snapshot.value);
   });
 
   var oxygen = FirebaseDatabase.instance.ref("oxygen");
 
-  oxygen.onValue.listen((DatabaseEvent event){
+  oxygen.onValue.listen((DatabaseEvent event) {
     print(event.snapshot.value);
   });
 
@@ -38,10 +39,9 @@ Future<void> main() async {
   // }
   // getData();
 
-
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: LandingPage(),
+    home: VideoApp(),
     //theme: darkTheme.,
   ));
 }
