@@ -1,6 +1,9 @@
-# flutter_blue_example
+# The Personal Sentry
 
-Demonstrates how to use the flutter_blue plugin.
+Front-End application for safety wearable, for Google Solutions-Challenge 2022
+
+![Alt text](/screenshots/img.png?raw=true "Application Dash Board")
+![Alt text](/screenshots/img_1.png?raw=true "Sentry Mode")
 
 ## Getting Started
 
