@@ -1,7 +1,9 @@
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:flutter/material.dart';
 import 'package:flutter_blue_example/screens/video_player.dart';
+import 'package:flutter_blue_example/utils/colors.dart' as colors;
+import 'package:google_fonts/google_fonts.dart';
 
 import '../utils/video_data.dart';
 
@@ -29,37 +31,92 @@ class _VideoListState extends State<VideoList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Videos"),
-      ),
-      body: FutureBuilder(
-          future: getVideoData(),
-          builder: (context, AsyncSnapshot snapshot) {
-            if (snapshot.hasData) {
-              print("DATA HERE: ");
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 60, left: 10.0, right: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.notifications_active,
+                      color: colors.primaryTextColor,
+                    )),
+                IconButton(
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => VideoList()));
+                    },
+                    icon: Icon(
+                      Icons.archive,
+                      color: colors.primaryTextColor,
+                    )),
+              ],
+            ),
+          ),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: EdgeInsets.only(top: 20, left: 20.0, right: 20.0),
+              child: Text(
+                'Welcome',
+                style: GoogleFonts.montserrat(
+                    color: colors.primaryTextColor, fontSize: 40),
+              ),
+            ),
+          ),
+          Expanded(
+            child: FutureBuilder(
+                future: getVideoData(),
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    print("DATA HERE: ");
 
-              if (snapshot.data.isNotEmpty)
-                return ListView.builder(
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Card(
-                      elevation: 10,
-                      child: ListTile(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => VideoApp(
-                                    data: snapshot.data[index],
-                                  )));
+                    if (snapshot.data.isNotEmpty)
+                      return ListView.builder(
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(14)),
+                              elevation: 5,
+                              child: ListTile(
+                                contentPadding: EdgeInsets.only(
+                                    left: 20.0,
+                                    right: 20.0,
+                                    top: 10.0,
+                                    bottom: 10.0),
+                                tileColor: colors.accentColor,
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => VideoApp(
+                                            data: snapshot.data[index],
+                                          )));
+                                },
+                                title: Text(
+                                  snapshot.data[index].fileName,
+                                  style: GoogleFonts.montserrat(
+                                      color: colors.scaffoldColor),
+                                ),
+                              ),
+                            ),
+                          );
                         },
-                        title: Text(snapshot.data[index].fileName),
-                      ),
-                    );
-                  },
-                );
-              return Center(child: CircularProgressIndicator());
-            } else
-              return Center(child: CircularProgressIndicator());
-          }),
+                      );
+                    return Center(
+                        child: CircularProgressIndicator(
+                      color: colors.primaryTextColor,
+                    ));
+                  } else
+                    return Center(child: CircularProgressIndicator());
+                }),
+          ),
+        ],
+      ),
     );
   }
 }
