@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "672403076167",
+    "project_id": "solutions-challenge-345805",
+    "storage_bucket": "solutions-challenge-345805.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:672403076167:android:214b02a859c29b771cad62",
+        "android_client_info": {
+          "package_name": "com.pauldemarco.flutter_blue_example"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "672403076167-u9ksfoo6mu7i661iajq7v6g0d2ub1ssj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbW3j-VO5190Tu07JFwFegfw86Zrp5-8M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "672403076167-u9ksfoo6mu7i661iajq7v6g0d2ub1ssj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
