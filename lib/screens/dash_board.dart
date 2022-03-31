@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_example/screens/sentry_alert.dart';
 import 'package:flutter_blue_example/screens/video_list.dart';
 import 'package:flutter_blue_example/utils/colors.dart' as colors;
 import 'package:flutter_blue_example/widgets/custom_sliver_widget.dart';
@@ -14,20 +17,23 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String oxygenData = "", heartRateData = "";
+  bool monitorMode = false;
 
   @override
   void initState() {
     super.initState();
     var heartRate = FirebaseDatabase.instance.ref("heartrate");
     var oxygen = FirebaseDatabase.instance.ref("oxygen");
-
-    //To change trigger value
-    // var trigger = FirebaseDatabase.instance.ref("trigger-sentry");
-    // trigger.set(true);
+    var trigger = FirebaseDatabase.instance.ref("trigger-sentry");
 
     heartRate.onValue.listen((DatabaseEvent event) {
       setState(() {
         heartRateData = event.snapshot.value.toString();
+        if (double.parse(heartRateData) > 80) {
+          trigger.set(true);
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => SentryPage()));
+        }
       });
     });
 
@@ -145,9 +151,9 @@ class _HomePageState extends State<HomePage> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
-                                    heartRateData,
+                                    heartRateData.substring(0, min(oxygenData.length, 4)),
                                     style: GoogleFonts.montserrat(
-                                        fontSize: 80,
+                                        fontSize: 50,
                                         color: colors.scaffoldColor),
                                   ),
                                   Align(
@@ -163,9 +169,9 @@ class _HomePageState extends State<HomePage> {
                               Row(
                                 children: [
                                   Text(
-                                    oxygenData,
+                                    oxygenData.substring(0, min(oxygenData.length, 4)),
                                     style: GoogleFonts.montserrat(
-                                        fontSize: 80,
+                                        fontSize: 50,
                                         color: colors.scaffoldColor),
                                   ),
                                   Text(
@@ -204,9 +210,9 @@ class _HomePageState extends State<HomePage> {
                                     Row(
                                       children: [
                                         Text(
-                                          heartRateData,
+                                          heartRateData.substring(0, min(oxygenData.length, 4)),
                                           style: GoogleFonts.montserrat(
-                                              fontSize: 60,
+                                              fontSize: 40,
                                               color: colors.primaryTextColor),
                                         ),
                                         Align(
@@ -254,9 +260,9 @@ class _HomePageState extends State<HomePage> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          oxygenData,
+                                          oxygenData.substring(0, min(oxygenData.length, 4)),
                                           style: GoogleFonts.montserrat(
-                                              fontSize: 60,
+                                              fontSize: 40,
                                               color: colors.primaryTextColor),
                                         ),
                                         Align(
@@ -291,23 +297,21 @@ class _HomePageState extends State<HomePage> {
           ),
           Padding(
             padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
-            child: Expanded(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Color(0xffEF7A7A),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.only(top: 50, bottom: 50.0),
-                  child: Center(
-                      child: Text(
-                    'TURN OFF MONITOR MODE',
-                    style: GoogleFonts.montserrat(
-                        color: Color(0xff660000), fontSize: 25),
-                    textAlign: TextAlign.center,
-                  )),
-                ),
-                onPressed: () {},
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Color(0xffEF7A7A),
               ),
+              child: Padding(
+                padding: EdgeInsets.only(top: 50, bottom: 50.0),
+                child: Center(
+                    child: Text(
+                      'TURN OFF MONITOR MODE',
+                      style: GoogleFonts.montserrat(
+                          color: Color(0xff660000), fontSize: 25),
+                      textAlign: TextAlign.center,
+                    )),
+              ),
+              onPressed: () {},
             ),
           )
           //Add a button to turn off monitoring and a correspondong value on realtime database
