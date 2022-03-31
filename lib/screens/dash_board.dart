@@ -18,6 +18,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String oxygenData = "", heartRateData = "";
   bool monitorMode = false;
+  var monitorModeRef = FirebaseDatabase.instance.ref("monitor-mode");
 
   @override
   void initState() {
@@ -29,11 +30,17 @@ class _HomePageState extends State<HomePage> {
     heartRate.onValue.listen((DatabaseEvent event) {
       setState(() {
         heartRateData = event.snapshot.value.toString();
-        if (double.parse(heartRateData) > 80) {
+        if (double.parse(heartRateData) > 80 && monitorMode) {
           trigger.set(true);
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => SentryPage()));
         }
+      });
+    });
+
+    monitorModeRef.onValue.listen((DatabaseEvent event) {
+      setState(() {
+        monitorMode = event.snapshot.value.toString() == "true";
       });
     });
 
@@ -151,7 +158,8 @@ class _HomePageState extends State<HomePage> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
-                                    heartRateData.substring(0, min(oxygenData.length, 4)),
+                                    heartRateData.substring(
+                                        0, min(heartRateData.length, 4)),
                                     style: GoogleFonts.montserrat(
                                         fontSize: 50,
                                         color: colors.scaffoldColor),
@@ -169,7 +177,8 @@ class _HomePageState extends State<HomePage> {
                               Row(
                                 children: [
                                   Text(
-                                    oxygenData.substring(0, min(oxygenData.length, 4)),
+                                    oxygenData.substring(
+                                        0, min(oxygenData.length, 4)),
                                     style: GoogleFonts.montserrat(
                                         fontSize: 50,
                                         color: colors.scaffoldColor),
@@ -210,7 +219,8 @@ class _HomePageState extends State<HomePage> {
                                     Row(
                                       children: [
                                         Text(
-                                          heartRateData.substring(0, min(oxygenData.length, 4)),
+                                          heartRateData.substring(
+                                              0, min(heartRateData.length, 4)),
                                           style: GoogleFonts.montserrat(
                                               fontSize: 40,
                                               color: colors.primaryTextColor),
@@ -260,7 +270,8 @@ class _HomePageState extends State<HomePage> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          oxygenData.substring(0, min(oxygenData.length, 4)),
+                                          oxygenData.substring(
+                                              0, min(oxygenData.length, 4)),
                                           style: GoogleFonts.montserrat(
                                               fontSize: 40,
                                               color: colors.primaryTextColor),
@@ -305,13 +316,17 @@ class _HomePageState extends State<HomePage> {
                 padding: EdgeInsets.only(top: 50, bottom: 50.0),
                 child: Center(
                     child: Text(
-                      'TURN OFF MONITOR MODE',
-                      style: GoogleFonts.montserrat(
-                          color: Color(0xff660000), fontSize: 25),
-                      textAlign: TextAlign.center,
-                    )),
+                  monitorMode
+                      ? 'TURN OFF MONITOR MODE'
+                      : 'TURN ON MONITOR MODE',
+                  style: GoogleFonts.montserrat(
+                      color: Color(0xff660000), fontSize: 25),
+                  textAlign: TextAlign.center,
+                )),
               ),
-              onPressed: () {},
+              onPressed: () {
+                monitorModeRef.set(!monitorMode);
+              },
             ),
           )
           //Add a button to turn off monitoring and a correspondong value on realtime database
