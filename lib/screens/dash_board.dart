@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_example/screens/sentry_alert.dart';
 import 'package:flutter_blue_example/screens/video_list.dart';
 import 'package:flutter_blue_example/utils/colors.dart' as colors;
+import 'package:flutter_blue_example/utils/notification_service.dart';
 import 'package:flutter_blue_example/widgets/custom_sliver_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 

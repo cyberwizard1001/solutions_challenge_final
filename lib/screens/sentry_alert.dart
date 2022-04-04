@@ -1,5 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_example/utils/notification_service.dart';
 import 'package:flutter_blue_example/widgets/custom_sliver_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_blue_example/utils/colors.dart' as colors;
@@ -9,11 +10,13 @@ class SentryPage extends StatefulWidget {
 
   @override
   State<SentryPage> createState() => _SentryPageState();
+
 }
 
 class _SentryPageState extends State<SentryPage> {
   @override
   Widget build(BuildContext context) {
+    NotificationService.showNotification(id: 0, title: 'ALERT!',body: 'Sentry mode has been turned on, device is now recording video');
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
