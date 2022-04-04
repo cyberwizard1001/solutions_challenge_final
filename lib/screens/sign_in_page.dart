@@ -1,13 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_blue_example/screens/create_profile.dart';
 import 'package:flutter_blue_example/screens/dash_board.dart';
 import 'package:flutter_blue_example/screens/signup_page.dart';
-import 'package:flutter_blue_example/widgets/custom_sliver_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_blue_example/utils/colors.dart' as colors;
 import 'package:flutter_blue_example/utils/constants.dart' as constants;
+import 'package:flutter_blue_example/widgets/custom_sliver_widget.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+import '../utils/authentication.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -17,11 +19,11 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
-
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _phoneNumberController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool _isSigningIn = false;
 
   String error = "";
 
@@ -71,9 +73,9 @@ class _SignInPageState extends State<SignInPage> {
                             ),
                             Padding(
                                 padding:
-                                const EdgeInsets.only(top: 1, bottom: 20),
+                                    const EdgeInsets.only(top: 1, bottom: 20),
                                 child: Text(
-                                  'Sign in to Cabriolet',
+                                  'Sign in to Sentry',
                                   style: GoogleFonts.nunito(
                                     color: colors.primaryTextColor,
                                     fontSize: 16,
@@ -147,25 +149,76 @@ class _SignInPageState extends State<SignInPage> {
                                 borderRadius: BorderRadius.circular(5)),
                           )),
                     ),
-                    Padding(padding: const EdgeInsets.only(left: 20, right: 20,bottom: 30),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 20, right: 20, bottom: 30),
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: TextButton(
-                          child: Text('Sign up instead', style: GoogleFonts.nunito(fontSize: 20, color: colors.primaryTextColor, ),),
-                          onPressed: (){
+                          child: Text(
+                            'Sign up instead',
+                            style: GoogleFonts.nunito(
+                              fontSize: 15,
+                              color: colors.primaryTextColor,
+                            ),
+                          ),
+                          onPressed: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => SignUpPage()));
                           },
                         ),
-                      ),),
+                      ),
+                    ),
                     Padding(
                       padding: constants.textFieldPadding,
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children:[
-                            IconButton(onPressed: (){}, icon: Icon(FontAwesomeIcons.google, color: colors.accentTextColor,)),
+                          children: [
+                            FutureBuilder(
+                                future: Authentication.initializeFirebase(
+                                    context: context),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasError) {
+                                    return Text('Error initializing Firebase');
+                                  } else if (snapshot.connectionState ==
+                                      ConnectionState.done) {
+                                    return IconButton(
+                                        onPressed: () async {
+                                          setState(() {
+                                            _isSigningIn = true;
+                                          });
+
+                                          User? user = await Authentication
+                                              .signInWithGoogle(
+                                                  context: context);
+
+                                          setState(() {
+                                            _isSigningIn = false;
+                                          });
+
+                                          if (user != null) {
+                                            Navigator.of(context)
+                                                .pushReplacement(
+                                              MaterialPageRoute(
+                                                builder: (context) => HomePage(
+                                                  user: user,
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                        },
+                                        icon: Icon(
+                                          FontAwesomeIcons.google,
+                                          color: colors.accentColor,
+                                        ));
+                                  }
+                                  return CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                        colors.accentColor),
+                                  );
+                                }),
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                   primary: colors.accentColor),
@@ -177,11 +230,11 @@ class _SignInPageState extends State<SignInPage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => CreateProfilePage()));
+                                        builder: (context) =>
+                                            CreateProfilePage()));
                               },
                             ),
-                          ]
-                      ),
+                          ]),
                     ),
                   ],
                 ),

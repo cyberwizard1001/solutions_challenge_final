@@ -34,7 +34,7 @@ class _LandingPageState extends State<LandingPage> {
             flex: 2,
             child: Center(
               child: Text(
-                'Cabriolet',
+                'Sentry',
                 style: GoogleFonts.nunito(
                     color: colors.primaryTextColor,
                     fontSize: 50,

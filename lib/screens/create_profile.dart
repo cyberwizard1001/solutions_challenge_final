@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_blue_example/screens/dash_board.dart';
 import 'package:flutter_blue_example/screens/profile_page.dart';
+import 'package:flutter_blue_example/utils/authentication.dart';
 import 'package:flutter_blue_example/utils/colors.dart' as colors;
 import 'package:flutter_blue_example/utils/constants.dart';
 import 'package:flutter_blue_example/widgets/custom_sliver_widget.dart';
@@ -15,6 +17,8 @@ class CreateProfilePage extends StatefulWidget {
 }
 
 class _CreateProfilePageState extends State<CreateProfilePage> {
+
+
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
@@ -281,13 +285,16 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                               child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                       primary: colors.accentColor),
-                                  onPressed: () {
+                                  onPressed: () async {
+                                    User? user =
+                                    await Authentication.signInWithGoogle(context: context);
+                                    if (user != null){
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                            const HomePage()));
-                                  },
+                                            HomePage(user: user,)));
+                                  }},
                                   child: Text(
                                     'CONTINUE',
                                     style: GoogleFonts.nunito(

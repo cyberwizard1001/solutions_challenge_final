@@ -70,7 +70,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 padding:
                                 const EdgeInsets.only(top: 1, bottom: 20),
                                 child: Text(
-                                  'Register with Cabriolet',
+                                  'Register with Sentry',
                                   style: GoogleFonts.nunito(
                                     color: colors.primaryTextColor,
                                     fontSize: 16,
@@ -256,7 +256,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => HomePage()));
+                                        builder: (context) => SignInPage()));
                               },
                             ),
                           ]

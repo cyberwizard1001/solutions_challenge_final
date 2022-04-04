@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_example/screens/sentry_alert.dart';
@@ -9,7 +10,9 @@ import 'package:flutter_blue_example/widgets/custom_sliver_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key, required this.user}) : super(key: key);
+
+  final User user;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -96,7 +99,7 @@ class _HomePageState extends State<HomePage> {
             child: Padding(
               padding: EdgeInsets.only(left: 20.0, right: 20.0),
               child: Text(
-                'Adheena B',
+                widget.user.displayName.toString(),
                 style: GoogleFonts.montserrat(
                     color: colors.primaryTextColor, fontSize: 20),
               ),

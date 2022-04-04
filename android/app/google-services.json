@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "672403076167",
+    "firebase_url": "https://solutions-challenge-345805-default-rtdb.firebaseio.com",
     "project_id": "solutions-challenge-345805",
     "storage_bucket": "solutions-challenge-345805.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "672403076167-7usegs2kkskv673ogsnuvirp17m8akdu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pauldemarco.flutter_blue_example",
+            "certificate_hash": "d25aacb5e18df36bf5719206d638e4b38d43e50e"
+          }
+        },
         {
           "client_id": "672403076167-u9ksfoo6mu7i661iajq7v6g0d2ub1ssj.apps.googleusercontent.com",
           "client_type": 3
