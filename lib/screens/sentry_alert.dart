@@ -25,11 +25,11 @@ class _SentryPageState extends State<SentryPage> {
             Align(
               alignment: Alignment.topLeft,
               child: Padding(
-                padding: EdgeInsets.only(top: 50, left: 20.0, right: 20.0),
+                padding: EdgeInsets.only(top: 80, left: 20.0, right: 20.0),
                 child: Text(
                   'Sentry Mode',
                   style: GoogleFonts.montserrat(
-                      color: colors.primaryTextColor, fontSize: 40),
+                      color: colors.primaryTextColor, fontSize: 35, fontWeight: FontWeight.w600),
                 ),
               ),
             ),
